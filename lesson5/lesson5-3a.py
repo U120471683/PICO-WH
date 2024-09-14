@@ -55,3 +55,4 @@ while True:
     if play_again == "n":
         break
 print('程式結束')
+print('\n')
