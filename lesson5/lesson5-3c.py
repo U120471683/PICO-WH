@@ -1,4 +1,4 @@
-import tools
+import tools #自訂的module是檔是檔案
 while True:
     kg=0  #清除變數
     cm=0  #清除變數
