@@ -1,2 +1,3 @@
-print('hello python from micropython!')
-print('hello !')
+from machine import Pin
+led = Pin("LED", Pin.OUT)
+led.value(1)
