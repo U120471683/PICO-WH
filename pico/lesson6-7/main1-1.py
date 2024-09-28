@@ -1,5 +1,4 @@
-import machine
-import time
+from machine import Timer,ADC
 
 adc = machine.ADC(4)
 conversion_factor = 3.3 / (65535)
@@ -11,4 +10,5 @@ while True:
     # Typically, Vbe = 0.706V at 27 degrees C, with a slope of -1.721mV (0.001721) per degree. 
     temperature = 27 - (reading - 0.706)/0.001721
     print(temperature)
-    time.sleep(2)
+    time.sleep(10)
+
