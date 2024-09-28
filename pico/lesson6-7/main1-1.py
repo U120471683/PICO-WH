@@ -1,7 +1,7 @@
 import machine
 import time
 
-sensor_temp = machine.ADC(4)
+adc = machine.ADC(4)
 conversion_factor = 3.3 / (65535)
 
 while True:
