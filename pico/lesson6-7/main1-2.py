@@ -11,7 +11,7 @@ def do_thing(t):
     print(temperature)
 
 def do_thing1(t):
-    print(do_thing1)
+    print("do_thing1")
 
 t1=Timer(period=2000, mode=Timer.PERIODIC, callback=do_thing)
 t2=Timer(period=500, mode=Timer.PERIODIC, callback=do_thing1)
