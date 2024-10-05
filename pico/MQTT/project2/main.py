@@ -1,8 +1,4 @@
-import tools
 from machine import Timer,ADC,Pin,PWM,RTC
-
-tools.connect()
-
 
 adc = ADC(4)
 pwm = PWM(Pin(15),freq=50)
@@ -24,7 +20,15 @@ def do_thing1(t):
     
     print(f'可變電阻:{round(duty/65535*10)}')
 
+def do_thing2(t):
+    adc2 = ADC(Pin(28))
+    duty2 = adc2.read_u16()
+    pwm.duty_u16(duty2)
+    
+    print(f'光敏電阻:{round(duty2/65535*10)}')
+
 
 
 t1 = Timer(period=2000, mode=Timer.PERIODIC, callback=do_thing)
 t2 = Timer(period=500, mode=Timer.PERIODIC, callback=do_thing1)
+t3 = Timer(period=500, mode=Timer.PERIODIC, callback=do_thing2)
