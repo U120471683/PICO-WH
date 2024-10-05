@@ -37,7 +37,7 @@ def do_thing1(t):
     pwm.duty_u16(duty)
     light_level = round(duty/65535*10)
     print(f'可變電阻:{light_level}')
-    mqtt.publish('SA-01/LIGHT_LEVEL', f'{light_level}')
+    mqtt.publish('SA-56/LIGHT_LEVEL', f'{light_level}')
     
 
 def main():
@@ -61,6 +61,6 @@ if __name__ == '__main__':
     #MQTT
     SERVER = "192.168.0.252"
     CLIENT_ID = binascii.hexlify(machine.unique_id())
-    mqtt = MQTTClient(CLIENT_ID, SERVER,user='pi',password='raspberry')
+    mqtt = MQTTClient(CLIENT_ID, SERVER,user='pi',password='raspberry') 
     mqtt.connect()
     main()
