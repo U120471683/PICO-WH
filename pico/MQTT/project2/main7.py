@@ -8,7 +8,7 @@ led->gpio15
 '''
 
 from machine import Timer,ADC,Pin,PWM,RTC
-import tools
+import tools #連線程序
 
 
 def do_thing(t):
@@ -38,7 +38,7 @@ def do_thing1(t):
 
 def main():
     try:
-        tools.connect()
+        tools.connect() #連線程序
     except RuntimeError as e:
         print(e)
     except Exception:

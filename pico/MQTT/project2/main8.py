@@ -2,7 +2,7 @@
 button = Pin(0, Pin.IN)
 
 # Default MQTT server to connect to
-SERVER = "192.168.1.35"
+SERVER = "192.168.0.152"
 CLIENT_ID = binascii.hexlify(machine.unique_id())
 TOPIC = b"led"
 
