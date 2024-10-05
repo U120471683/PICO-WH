@@ -4,6 +4,7 @@ import time
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
 wlan.connect('shichan6', '038565301')
+#wlan.connect('A590301', 'A590301AA')
 #等待連線或失敗
 #status=0,1,2正在連線
 #status=3連線成功
