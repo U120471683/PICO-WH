@@ -1,3 +1,6 @@
+
+# 電阻調LED亮度
+
 from machine import Timer,ADC,Pin,PWM,RTC
 
 adc = ADC(4)
