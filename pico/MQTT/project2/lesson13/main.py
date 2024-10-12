@@ -23,8 +23,10 @@ def do_thing(t):
     reading = adc.read_u16() * conversion_factor
     temperature = 27 - (reading - 0.706)/0.001721  
     print(f'溫度:{temperature}')
+    mqtt.publish('SA-59/TEMPERATURE', f'{temperature}')
     adc_value = adc_light.read_u16()
     print(f'光線:{adc_value}')
+    mqtt.publish('SA-59/LINE_LEVEL', f'{adc_value}')
     
     
 def do_thing1(t):
@@ -37,19 +39,11 @@ def do_thing1(t):
     pwm.duty_u16(duty)
     light_level = round(duty/65535*10)
     print(f'可變電阻:{light_level}')
-    mqtt.publish('SA-59/LIGHT_LEVEL', f'{light_level}') #發布訊息
+    mqtt.publish('SA-59/LED_LEVEL', f'{light_level}')
     
 
 def main():
-    try:
-        tools.connect()
-    except RuntimeError as e:
-        print(e)
-    except Exception:
-        print('不知明的錯誤')
-    else:
-        t1 = Timer(period=2000, mode=Timer.PERIODIC, callback=do_thing)
-        t2 = Timer(period=500, mode=Timer.PERIODIC, callback=do_thing1)
+    pass
         
 
 if __name__ == '__main__':
@@ -57,10 +51,20 @@ if __name__ == '__main__':
     adc1 = ADC(Pin(26)) #可變電阻
     adc_light = ADC(Pin(28)) #光敏電阻
     pwm = PWM(Pin(15),freq=50) #pwm led
+    #連線internet
+    try:
+        tools.connect()
+    except RuntimeError as e:
+        print(e)
+    except Exception:
+        print('不知明的錯誤')
+    else:
+        #MQTT
+        SERVER = "192.168.0.252"
+        CLIENT_ID = binascii.hexlify(machine.unique_id())
+        mqtt = MQTTClient(CLIENT_ID, SERVER,user='pi',password='raspberry')
+        mqtt.connect()
+        t1 = Timer(period=2000, mode=Timer.PERIODIC, callback=do_thing)
+        t2 = Timer(period=500, mode=Timer.PERIODIC, callback=do_thing1)   
     
-    #MQTT
-    SERVER = "192.168.0.252" #改為自己的MQTT伺服器IP
-    CLIENT_ID = binascii.hexlify(machine.unique_id())
-    mqtt = MQTTClient(CLIENT_ID, SERVER,user='pi',password='raspberry') #改為自己的MQTT帳號密碼
-    mqtt.connect()
     main()
