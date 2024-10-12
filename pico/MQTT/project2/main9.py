@@ -37,7 +37,7 @@ def do_thing1(t):
     pwm.duty_u16(duty)
     light_level = round(duty/65535*10)
     print(f'可變電阻:{light_level}')
-    mqtt.publish('SA-56/LIGHT_LEVEL', f'{light_level}') #發布訊息
+    mqtt.publish('SA-59/LIGHT_LEVEL', f'{light_level}') #發布訊息
     
 
 def main():
