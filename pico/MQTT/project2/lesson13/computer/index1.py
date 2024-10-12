@@ -5,13 +5,13 @@ def record():
 
 def on_connect(client, userdata, flags, reason_code, properties):
     #連線bloker成功時,只會執行一次
-    client.subscribe("SA-01/#")
+    client.subscribe("SA-59/#")
 
 def on_message(client, userdata, msg):
     global led_origin_value
     topic = msg.topic
     value = msg.payload.decode()
-    if topic == 'SA-01/LED_LEVEL':
+    if topic == 'SA-59/LED_LEVEL':
         led_value = int(value)
         if led_value != led_origin_value:
             led_origin_value = led_value
