@@ -33,7 +33,7 @@ def on_connect(client, userdata, flags, reason_code, properties):
 def on_message(client, userdata, msg):
     global led_origin_value
     topic = msg.topic
-    value = msg.payload.decode()
+    value = msg.payload.decode() #value是字串
     if topic == 'SA-59/LED_LEVEL':
         led_value = int(value)
         if led_value != led_origin_value:
