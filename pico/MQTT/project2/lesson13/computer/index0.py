@@ -8,8 +8,9 @@ def on_connect(client, userdata, flags, reason_code, properties):
 
 def on_message(client, userdata, msg):
       
+
     
-    print(f"Received message '{msg.payload.decode()}' on topic '{msg.topic}'")
+     print(f"Received message '{msg.payload.decode()}' on topic '{msg.topic}'")
 
 def main():
     client = mqtt.Client(callback_api_version=mqtt.CallbackAPIVersion.VERSION2)
