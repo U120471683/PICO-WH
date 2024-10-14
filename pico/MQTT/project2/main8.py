@@ -22,7 +22,8 @@ def main():
     
 if __name__ == '__main__':
     # Default MQTT server to connect to
-    SERVER = "192.168.0.252"
+    SERVER = "192.168.1.128" #家裡的RASPBERY PI5 SERVER
+    #SERVER = "192.168.0.252" #致理的SERVER 
     CLIENT_ID = binascii.hexlify(machine.unique_id())
     TOPIC = b"SA-59/chickenHouse/溫度"
     main()

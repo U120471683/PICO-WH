@@ -57,13 +57,15 @@ if __name__ == '__main__':
     except Exception:
         print('不知明的錯誤')
     else:
+        print('網路連線已建立成功 .........')
         #MQTT
-        SERVER = "192.168.0.252"
+        SERVER = "192.168.1.128"
+        #SERVER = "192.168.0.252"
         CLIENT_ID = binascii.hexlify(machine.unique_id())
         mqtt = MQTTClient(CLIENT_ID, SERVER,user='pi',password='raspberry')
        
         mqtt.connect()
-        print('kkkkk')
+        print('MQTT連線成功!!!!!!!!!!!!!')
         t1 = Timer(period=2000, mode=Timer.PERIODIC, callback=do_thing)
         t2 = Timer(period=500, mode=Timer.PERIODIC, callback=do_thing1)   
     

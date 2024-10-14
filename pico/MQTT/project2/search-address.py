@@ -1,9 +1,9 @@
 import network
-ssid = 'A590301'
-password = 'A590301AA'
+#ssid = 'A590301'
+#password = 'A590301AA'
 
-#ssid = 'shichan6'
-#password = '038565301'#
+ssid = 'shichan6'
+password = '038565301'#
 
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
