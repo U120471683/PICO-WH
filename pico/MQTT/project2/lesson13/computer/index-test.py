@@ -1,3 +1,5 @@
+
+
 import paho.mqtt.client as mqtt
 from datetime import datetime
 import os,csv
@@ -28,20 +30,21 @@ def record(r):
 
 def on_connect(client, userdata, flags, reason_code, properties):
     #連線bloker成功時,只會執行一次
-    client.subscribe("SA-01/#")
+    client.subscribe("SA-59/#")
+    print('on_connect連線成功')
 
 def on_message(client, userdata, msg):
     global led_origin_value
     topic = msg.topic
     value = msg.payload.decode()
-    if topic == 'SA-01/LED_LEVEL':
+    if topic == 'SA-59/LED_LEVEL':
         led_value = int(value)
         if led_value != led_origin_value:
             led_origin_value = led_value
             print(f'led_value:{led_value}')
             today = datetime.now()
             now_str = today.strftime("%Y-%m-%d %H:%M:%S")
-            save_data = [now_str,"SA-01/LED_LEVEL",led_value]
+            save_data = [now_str,"SA-59/LED_LEVEL",led_value]
             record(save_data)
     #print(f"Received message '{msg.payload.decode()}' on topic '{msg.topic}'")
 
@@ -53,11 +56,20 @@ def main():
     client.username_pw_set(username, password)
     client.on_connect = on_connect
     client.on_message = on_message 
-    #client.connect("192.168.0.252", 1883, 60)
     client.connect("192.168.1.128", 1883, 60)
+    print('連線成功')
     client.loop_forever()
 
 
 if __name__ == "__main__":
     led_origin_value = 0 
     main()
+
+
+
+
+
+
+
+
+
