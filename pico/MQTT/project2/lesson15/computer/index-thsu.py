@@ -1,12 +1,15 @@
-
-
 import paho.mqtt.client as mqtt
 from datetime import datetime
 import os,csv
 
-def record(r:list): #->None 可不寫
+def record(date:str,topic:str,value:int):
     '''
-    - 檢查   
+    #檢查是否有data資料夾,沒有就建立data資料夾
+    #取得今天日期,如果沒有今天日期.csv,就建立一個全新的今天日期.csv
+    #將參數r的資料,儲存進入csv檔案內
+    #parameters date:str -> 這是日期
+    #parameters topic:str -> 這是訂閱的topic
+    #parameters value:int -> 這是訂閱的value
     '''
     root_dir = os.getcwd()
     data_dir = os.path.join(root_dir, 'data')
@@ -14,7 +17,8 @@ def record(r:list): #->None 可不寫
             os.mkdir('data')
     
     today = datetime.today()
-    filename = today.strftime("%Y-%m-%d") + ".csv"
+    current_str = today.strftime("%Y-%m-%d %H:%M:%S")
+    filename = date + ".csv"
     #get_file_abspath
     full_path = os.path.join(data_dir,filename)
     if not os.path.exists(full_path):
@@ -25,7 +29,7 @@ def record(r:list): #->None 可不寫
     
     with open(full_path, mode='a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
-        writer.writerow(r)
+        writer.writerow([current_str,topic,value])
 
     
 
@@ -33,22 +37,21 @@ def record(r:list): #->None 可不寫
 
 def on_connect(client, userdata, flags, reason_code, properties):
     #連線bloker成功時,只會執行一次
-    client.subscribe("SA-59/#")
-    print('on_connect連線成功')
+    client.subscribe("SA-01/#")
 
 def on_message(client, userdata, msg):
     global led_origin_value
     topic = msg.topic
     value = msg.payload.decode()
-    if topic == 'SA-59/LED_LEVEL':
+    if topic == 'SA-01/LED_LEVEL':
         led_value = int(value)
         if led_value != led_origin_value:
             led_origin_value = led_value
             print(f'led_value:{led_value}')
             today = datetime.now()
-            now_str = today.strftime("%Y-%m-%d %H:%M:%S")
-            save_data = [now_str,"SA-59/LED_LEVEL",led_value]
-            record(save_data)
+            now_str = today.strftime("%Y-%m-%d")
+            #save_data = [now_str,"SA-01/LED_LEVEL",led_value]
+            record(now_str,topic,led_value)
     #print(f"Received message '{msg.payload.decode()}' on topic '{msg.topic}'")
 
 def main():
@@ -59,21 +62,10 @@ def main():
     client.username_pw_set(username, password)
     client.on_connect = on_connect
     client.on_message = on_message 
-    #client.connect("192.168.1.128", 1883, 60)
     client.connect("192.168.0.252", 1883, 60)
-    print('連線成功')
     client.loop_forever()
 
 
 if __name__ == "__main__":
     led_origin_value = 0 
     main()
-
-
-
-
-
-
-
-
-
