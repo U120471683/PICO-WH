@@ -42,15 +42,12 @@ def on_message(client, userdata, msg):
 
     topic = msg.topic
     value = msg.payload.decode()
-   
-    print(topic,value)
     if topic == 'SA-59/LED_LEVEL':
         led_value = int(value)
         if led_value != led_origin_value:
             led_origin_value = led_value
             record(topic,led_value)
-
-   
+    
     if topic == 'SA-59/TEMPERATURE':
         temperature_value = float(value)
         if temperature_origin_value != temperature_value:           
