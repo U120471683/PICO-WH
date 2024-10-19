@@ -34,7 +34,7 @@ def record(topic:str,value:int | float):
 
 def on_connect(client, userdata, flags, reason_code, properties):
     #連線bloker成功時,只會執行一次
-    client.subscribe("SA-01/#")
+    client.subscribe("SA-59/#")
 
 def on_message(client, userdata, msg):
     global led_origin_value
@@ -42,13 +42,13 @@ def on_message(client, userdata, msg):
 
     topic = msg.topic
     value = msg.payload.decode()
-    if topic == 'SA-01/LED_LEVEL':
+    if topic == 'SA-59/LED_LEVEL':
         led_value = int(value)
         if led_value != led_origin_value:
             led_origin_value = led_value
             record(topic,led_value)
     
-    if topic == 'SA-01/TEMPERATURE':
+    if topic == 'SA-59/TEMPERATURE':
         temperature_value = float(value)
         if temperature_origin_value != temperature_value:           
            temperature_origin_value = temperature_value
