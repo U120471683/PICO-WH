@@ -21,14 +21,15 @@ def do_thing(t):
     '''
     conversion_factor = 3.3 / (65535)
     reading = adc.read_u16() * conversion_factor
+    #temperature = 27 - (reading - 0.706)/0.001721  
     temperature = round(27 - (reading - 0.706)/0.001721,2)  
-    print(f'溫度:{round(temperature,2)}')
+    print(f'溫度:{temperature}')
     mqtt.publish('SA-59/TEMPERATURE', f'{temperature}')
     adc_value = adc_light.read_u16()
     print(f'光線:{adc_value}')
     line_state = 0 if adc_value < 20000 else 1
     print(f'光線:{line_state}')
-    mqtt.publish('SA-01/LINE_LEVEL', f'{line_state}')
+    mqtt.publish('SA-59/LINE_LEVEL', f'{line_state}')
     
     
     
@@ -65,9 +66,9 @@ if __name__ == '__main__':
     else:
         #MQTT
         #SERVER = "192.168.1.125"  #SERVER=shichan@shichan3
-        #SERVER = "192.168.1.128"  #SERVER=shichan@shichan4
+        SERVER = "192.168.1.128"  #SERVER=shichan@shichan4
         #SERVER = "192.168.0.104"  #SERVER=shichan@shichan4致理
-        SERVER = "192.168.0.252"
+        #SERVER = "192.168.0.252"
         CLIENT_ID = binascii.hexlify(machine.unique_id())
         mqtt = MQTTClient(CLIENT_ID, SERVER,user='pi',password='raspberry')
         mqtt.connect()

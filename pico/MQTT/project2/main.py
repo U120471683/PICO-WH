@@ -59,8 +59,8 @@ if __name__ == '__main__':
     pwm = PWM(Pin(15),freq=50) #pwm led
     
     #MQTT
-    #SERVER = "192.168.1.128" #自己的MQTT伺服器IP
-    SERVER = "192.168.0.252" #致理的MQTT伺服器IP
+    SERVER = "192.168.1.128" #自己的MQTT伺服器IP
+    #SERVER = "192.168.0.252" #致理的MQTT伺服器IP
     CLIENT_ID = binascii.hexlify(machine.unique_id())
     mqtt = MQTTClient(CLIENT_ID, SERVER,user='pi',password='raspberry') #改為自己的MQTT帳號密碼
     #mqtt = MQTTClient(CLIENT_ID, SERVER)
