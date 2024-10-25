@@ -45,7 +45,7 @@ def on_message(client, userdata, msg):
     topic = msg.topic
     value = msg.payload.decode()
    
-    print(topic,value)
+    #print(topic,value) #改由2024-xx-xx.csv 的檔案去看temprature與led_level值的變化
     if topic == 'SA-59/LED_LEVEL':
         led_value = int(value)
         if led_value != led_origin_value:
