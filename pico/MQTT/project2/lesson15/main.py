@@ -25,9 +25,10 @@ def do_thing(t):
     temperature = round(27 - (reading - 0.706)/0.001721,2)  
     print(f'溫度:{temperature}')
     mqtt.publish('SA-59/TEMPERATURE', f'{temperature}')
-    adc_value = adc_light.read_u16()
+    adc_value = adc_light.read_u16() #光線的值
     print(f'光線:{adc_value}')
-    line_state = 0 if adc_value < 20000 else 1
+    line_state = 0 if adc_value < 20000 else 1 #line_state = 0(adc_value < 20000) :關燈
+                                                        #line_state = 1(adc_value >= 20000) : 開燈
     print(f'光線:{line_state}')
     mqtt.publish('SA-59/LINE_LEVEL', f'{line_state}')
     
