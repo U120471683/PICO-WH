@@ -73,6 +73,6 @@ if __name__ == '__main__':
         mqtt = MQTTClient(CLIENT_ID, SERVER,user='pi',password='raspberry')
         mqtt.connect()
         t1 = Timer(period=2000, mode=Timer.PERIODIC, callback=do_thing)
-        t2 = Timer(period=1000, mode=Timer.PERIODIC, callback=do_thing1)   
+        t2 = Timer(period=2000, mode=Timer.PERIODIC, callback=do_thing1)   
     
     main()
