@@ -1,4 +1,4 @@
-#lesson15_5: 透過MQTT接收SA-59的訊息,並且將訊息寫入csv檔案
+#lesson15_05: 透過MQTT接收SA-59的訊息,並且將訊息寫入csv檔案
 
 import paho.mqtt.client as mqtt
 from datetime import datetime
