@@ -66,10 +66,10 @@ if __name__ == '__main__':
         print('不知名的錯誤')
     else:
         #MQTT
-        SERVER = "192.168.1.125"  #SERVER=shichan@shichan3
-        #SERVER = "192.168.1.128"  #SERVER=shichan@shichan4
+        #SERVER = "192.168.1.125"  #SERVER=shichan@shichan3
+        SERVER = "192.168.1.128"  #SERVER=shichan@shichan4
         #SERVER = "192.168.0.104"  #SERVER=shichan@shichan4致理
-        SERVER = "192.168.0.252"
+        #SERVER = "192.168.0.252"
         CLIENT_ID = binascii.hexlify(machine.unique_id())
         mqtt = MQTTClient(CLIENT_ID, SERVER,user='pi',password='raspberry')
         mqtt.connect()
