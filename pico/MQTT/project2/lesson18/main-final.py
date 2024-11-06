@@ -27,7 +27,7 @@ def do_thing(t):
     blynk_mqtt.publish('ds/temperature',f'{temperature}')
     adc_value = adc_light.read_u16()
     print(f'光線:{adc_value}')
-    line_state = 0 if adc_value < 3500 else 1
+    line_state = 0 if adc_value < 20000 else 1
     print(f'光線:{line_state}')
     mqtt.publish('SA-59/LINE_LEVEL', f'{line_state}')
     blynk_mqtt.publish('ds/line_status',f'{line_state}')
@@ -76,6 +76,6 @@ if __name__ == '__main__':
         mqtt = MQTTClient(CLIENT_ID, SERVER,user='pi',password='raspberry')
         mqtt.connect()
         t1 = Timer(period=2000, mode=Timer.PERIODIC, callback=do_thing)
-        t2 = Timer(period=500, mode=Timer.PERIODIC, callback=do_thing1)
+        t2 = Timer(period=2000, mode=Timer.PERIODIC, callback=do_thing1)
     blynk_mqtt = None    
     main()
