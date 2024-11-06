@@ -23,13 +23,13 @@ def do_thing(t):
     reading = adc.read_u16() * conversion_factor
     temperature = round(27 - (reading - 0.706)/0.001721,2) 
     print(f'溫度:{temperature}')
-    mqtt.publish('SA-01/TEMPERATURE', f'{temperature}')
+    mqtt.publish('SA-59/TEMPERATURE', f'{temperature}')
     blynk_mqtt.publish('ds/temperature',f'{temperature}')
     adc_value = adc_light.read_u16()
     print(f'光線:{adc_value}')
     line_state = 0 if adc_value < 3500 else 1
     print(f'光線:{line_state}')
-    mqtt.publish('SA-01/LINE_LEVEL', f'{line_state}')
+    mqtt.publish('SA-59/LINE_LEVEL', f'{line_state}')
     blynk_mqtt.publish('ds/line_status',f'{line_state}')
     
     
@@ -43,7 +43,7 @@ def do_thing1(t):
     pwm.duty_u16(duty)
     light_level = round(duty/65535*10)
     print(f'可變電阻:{light_level}')
-    mqtt.publish('SA-01/LED_LEVEL', f'{light_level}')
+    mqtt.publish('SA-59/LED_LEVEL', f'{light_level}')
     blynk_mqtt.publish('ds/led_level',f'{light_level}')
     
 
@@ -52,7 +52,7 @@ def main():
     print(config.BLYNK_MQTT_BROKER)
     print(config.BLYNK_TEMPLATE_ID)
     print(config.BLYNK_AUTH_TOKEN)
-    blynk_mqtt = MQTTClient(config.BLYNK_TEMPLATE_ID, config.BLYNK_MQTT_BROKER,user='device',password=config.BLYNK_AUTH_TOKEN,keepalive=60)
+    blynk_mqtt = MQTTClient(config.BLYNK_TEMPLATE_ID, config.BLYNK_MQTT_BROKER,user='device',password=config.BLYNK_AUTH_TOKEN,keepalive=60) #建立blynk_mqtt物件     
     blynk_mqtt.connect()
     
         
@@ -71,7 +71,7 @@ if __name__ == '__main__':
         print('不知明的錯誤')
     else:
         #MQTT
-        SERVER = "192.168.0.252"
+        SERVER = "192.168.1.125"
         CLIENT_ID = binascii.hexlify(machine.unique_id())
         mqtt = MQTTClient(CLIENT_ID, SERVER,user='pi',password='raspberry')
         mqtt.connect()
