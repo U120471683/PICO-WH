@@ -49,8 +49,8 @@ def record(topic:str,value:int | float | str):
     
     with open(full_path, mode='a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
-        writer.writerow([current_str,topic,value])
-        insert_to_sqlite((current_str,topic,float(value))) #加入至資料庫
+        writer.writerow([current_str,topic,value])  #寫入csv檔案            
+        insert_to_sqlite((current_str,topic,float(value))) #加入至資料庫        
 
 
 
